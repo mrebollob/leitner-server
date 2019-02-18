@@ -3,17 +3,19 @@ var router = express.Router();
 var _ = require('lodash');
 var admin = require("firebase-admin");
 var database = admin.firestore();
+var questionsRef = database.collection("questions");
 
 router.get('/level/:levelNumber', function (req, res, next) {
 
     var level = Number.parseInt(req.params.levelNumber);
 
     if (Number.isInteger(level)) {
-        var questionsRef = database.collection("questions");
         questionsRef.where('level', '==', level).get()
             .then(querySnapshot => {
                 var question = querySnapshot.docs.map(function (documentSnapshot) {
-                    return documentSnapshot.data();
+                    var result = documentSnapshot.data();
+                    result.id = documentSnapshot.id;
+                    return result;
                 });
 
                 var data = {};
@@ -37,23 +39,20 @@ router.get('/level/:levelNumber', function (req, res, next) {
     }
 });
 
-router.post('/', function (req, res) {
+router.put('/', function (req, res) {
 
-    var questions = req.body.questions;
+    var question = req.body.question;
+    var id = question.id;
+    var data = {
+        'level': question.level,
+        'question': question.question,
+        'response': question.response
+    };
 
-    _.forEach(questions, function (value) {
-        if (value.status == 'fail') {
-            console.log(value + "Mail");
-            // value.id a level 1
-        } else {
-            console.log(value + "Bien");
-            // value.id a level ++
-        }
-    });
-
+    questionsRef.doc(id).set(data);
     res.json({
-        'level': level,
-        'status': 'updated'
+        'status': 'updated',
+        'question': data
     });
 });
 
