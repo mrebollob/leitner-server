@@ -1,5 +1,5 @@
-const token = "454202765:AAEDXl2tq3boghuqIRn6YY9H1AxC5EsCC4E" //process.env.TOKEN;
-const base_url = "http://localhost:3000/" //process.env.BASE_URL;
+const token = process.env.TOKEN;
+const base_url = process.env.BASE_URL;
 
 const request = require('request');
 const TelegramBot = require('node-telegram-bot-api');

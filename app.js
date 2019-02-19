@@ -6,10 +6,13 @@ var logger = require('morgan');
 require("dotenv").config();
 
 var admin = require("firebase-admin");
-var serviceAccount = require("./leitner-prod-firebase-adminsdk-phnun-85afe3940a.json");
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://leitner-prod.firebaseio.com"
+  credential: admin.credential.cert({
+    projectId: 'leitner-prod',
+    clientEmail: 'firebase-adminsdk-phnun@leitner-prod.iam.gserviceaccount.com',
+    privateKey: process.env.FIREBASE_PRIVATE_KEY
+  }),
+  databaseURL: 'https://leitner-prod.firebaseio.com'
 });
 
 var indexRouter = require('./routes/index');
