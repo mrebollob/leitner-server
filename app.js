@@ -10,7 +10,7 @@ admin.initializeApp({
   credential: admin.credential.cert({
     projectId: 'leitner-prod',
     clientEmail: 'firebase-adminsdk-phnun@leitner-prod.iam.gserviceaccount.com',
-    privateKey: process.env.FIREBASE_PRIVATE_KEY
+    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n')
   }),
   databaseURL: 'https://leitner-prod.firebaseio.com'
 });
