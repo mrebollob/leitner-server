@@ -16,6 +16,7 @@
     "morgan": "~1.9.0",
     "node-telegram-bot-api": "^0.30.0",
     "pug": "2.0.0-beta11",
+    "redoc": "^2.0.0-rc.2",
     "request": "^2.88.0"
   }
 }
