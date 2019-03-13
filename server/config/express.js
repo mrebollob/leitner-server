@@ -4,7 +4,6 @@
 
 import express from 'express';
 import expressStaticGzip from 'express-static-gzip';
-import favicon from 'serve-favicon';
 import morgan from 'morgan';
 import compression from 'compression';
 import bodyParser from 'body-parser';
@@ -26,10 +25,6 @@ export default function(app) {
     if(env === 'development' || env === 'test') {
         app.use(express.static(path.join(config.root, '.tmp')));
         app.use(require('cors')());
-    }
-
-    if(env === 'production') {
-        app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
     }
 
     app.set('appPath', path.join(config.root, 'client'));
@@ -61,25 +56,6 @@ export default function(app) {
             db: 'leitner-server-test'
         })
     }));
-
-    /**
-     * Lusca - express server security
-     * https://github.com/krakenjs/lusca
-     */
-    if(env !== 'test' && env !== 'development') {
-        app.use(lusca({
-            csrf: {
-                header: 'x-xsrf-token',
-            },
-            xframe: 'SAMEORIGIN',
-            hsts: {
-                maxAge: 31536000, //1 year, in seconds
-                includeSubDomains: true,
-                preload: true
-            },
-            xssProtection: true
-        }));
-    }
 
     if(env === 'development' || env === 'test') {
         app.use(errorHandler()); // Error handler - has to be last

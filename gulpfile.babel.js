@@ -278,6 +278,9 @@ gulp.task('build', cb => {
             'clean:tmp'
         ],
         'transpile:server',
+        [
+            'copy:server',
+        ],
         cb);
 });
 

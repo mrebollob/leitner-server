@@ -38,8 +38,7 @@
     "passport-local": "^1.0.0",
     "passport-facebook": "^2.0.0",
     "passport-twitter": "^1.0.3",
-    "passport-google-oauth20": "^1.0.0",
-    "serve-favicon": "^2.3.0"
+    "passport-google-oauth20": "^1.0.0"
   },
   "devDependencies": {
     "@angularclass/hmr-loader": "^3.0.4",
@@ -152,8 +151,8 @@
     "supertest": "^3.0.0"
   },
   "engines": {
-    "node": ">=6.x.x",
-    "npm": ">=3.9.5"
+    "node": "8.5.0",
+    "npm": "6.1.0"
   },
   "scripts": {
     "build": "gulp build",
